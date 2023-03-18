@@ -5,7 +5,8 @@ public class GunSystem : MonoBehaviour
 {
 
     //Gun stats
-    public Inventory inv; 
+    public Inventory inv;
+    public UltSkill ult;
     //private int damage;
     //private float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     //private int magazineSize, bulletsPerTap;
@@ -14,7 +15,8 @@ public class GunSystem : MonoBehaviour
     //private int ammoType; // 0 - shotgun, 1 - smg, 2 - rpg
 
     //bools 
-    bool isWeapon, shooting, readyToShoot, reloading;
+    public bool isWeapon;
+    bool  shooting, readyToShoot, reloading;
 
     //Reference
     public Camera fpsCam;
@@ -26,7 +28,6 @@ public class GunSystem : MonoBehaviour
     public GameObject muzzleFlash, bulletHoleGraphic;
     //public CamShake camShake;
     public float camShakeMagnitude, camShakeDuration;
-    public TextMeshProUGUI text;
     public Transform renderPoint;
     private GameObject gunModel;
 
@@ -34,6 +35,7 @@ public class GunSystem : MonoBehaviour
     private void Start()
     {
         inv = GetComponent<Inventory>();
+        ult= GetComponent<UltSkill>();
     }
 
     public void UpdateGun(WeaponData newWeapon)
@@ -53,11 +55,7 @@ public class GunSystem : MonoBehaviour
     {
         if(isWeapon)
         MyInput();
-
-        //SetText
-        if (isWeapon && !inv.currWeapon.isMelee)
-            text.SetText(inv.currWeapon.bulletsLeft / inv.currWeapon.bulletsPerTap + " / " + inv.currWeapon.magazineSize / inv.currWeapon.bulletsPerTap);
-        else text.SetText("");
+        
     }
     private void MyInput()
     {
@@ -90,7 +88,14 @@ public class GunSystem : MonoBehaviour
             //Debug.Log(rayHit.collider.name);
             //--------------------------------------------------------ENEMY HIT------------------------------------
             if (rayHit.collider.CompareTag("Enemy"))
+            {
                 rayHit.collider.GetComponent<EnemyController>().TakeDamage(inv.currWeapon.damage);
+                if (ult.currUltCharge < ult.ultCharge)
+                    ult.currUltCharge += (inv.currWeapon.damage / 10);
+                if (ult.currUltCharge > ult.ultCharge)
+                    ult.currUltCharge = ult.ultCharge;
+
+            }
         }
 
         //ShakeCamera

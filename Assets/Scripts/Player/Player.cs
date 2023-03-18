@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
 
     public InterfaceManager interfaceManager;
 
-    public TMP_Text HP;
     public float maxHP { get { return maxHealth; } set { maxHealth = value; } }
     public float currHP { get { return currHealth; } set { currHealth = value; } }
 
@@ -26,7 +25,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HP.text = currHealth.ToString();
+        
         if(currHealth <= 0)
         {
             currHealth = 0;
