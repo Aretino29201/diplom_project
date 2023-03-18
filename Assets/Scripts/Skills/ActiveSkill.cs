@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActiveSkill : MonoBehaviour
 {// при подборе скиров менять ID и в UAS добавлять кейсы
-    public int actSkillID;
+    //public int actSkillID;
     private Player plr;
     private Inventory inv;
     private float cooldownTime;
@@ -20,20 +20,27 @@ public class ActiveSkill : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E) && !isCooldown)
         {
-            UseActiveSkill(inv.actSkill);
+            UseActiveSkill(inv.currActSkill);
+            isCooldown = true;
+            Invoke("ResetCooldown", cooldownTime);
+
         }
     }
 
 
     public void UseActiveSkill(int asID)
     {
-        switch (actSkillID)
+        switch (asID)
         {
-            case 0:
+            case 1:
                 SelfHeal(50, 10);
                 Debug.Log("Healed myself");
                 break;
-             default:
+            case 2:
+                UnbreakableArmor(3, 10);
+                Debug.Log("ARMOR");
+                break;
+            default:
                 Debug.Log("No active skills");
                 break;
         }
@@ -50,12 +57,31 @@ public class ActiveSkill : MonoBehaviour
                 plr.currHP = plr.maxHP;
             }
         }
-        isCooldown= true;
+        isCooldown = true;
         Invoke("ResetCooldown", cooldownTime);
+
     }
     private void ResetCooldown()
     {
         isCooldown= false;
         Debug.Log("Cooldown reseted");
+    }
+
+    private void UnbreakableArmor(float duration, float cdt)
+    {
+        cooldownTime = cdt;
+        StartCoroutine(Shield(duration));
+        
+    }
+
+    private IEnumerator Shield(float d)
+    {
+        //todo
+        float tempHP = plr.currHP;
+        plr.currHP = 999999999999;
+         yield return new WaitForSeconds(d);
+        plr.currHP = tempHP;
+        //StopCoroutine(Shield(d));
+
     }
 }

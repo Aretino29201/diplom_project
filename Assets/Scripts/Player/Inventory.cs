@@ -9,7 +9,8 @@ public class Inventory : MonoBehaviour
 
     public WeaponData currWeapon;
     public List<WeaponData> myWeapons;
-    public int pasSkill, actSkill, ult;
+    public int currPasSkill, currActSkill, currUlt;
+    public ActiveSkill actSkill;
 
     private void Start()
     {
@@ -44,17 +45,17 @@ public class Inventory : MonoBehaviour
 
     public void PickupPasSkill(int newPasSkill)
     {
-        pasSkill= newPasSkill;    
+        currPasSkill= newPasSkill;    
     }
 
     public void PickupActSkill(int newActSkill)
     {
-        actSkill= newActSkill;
+        currActSkill= newActSkill;
     }
 
     public void PickupUlt(int newUlt)
     {
-        ult= newUlt;
+        currUlt= newUlt;
     }
 
 

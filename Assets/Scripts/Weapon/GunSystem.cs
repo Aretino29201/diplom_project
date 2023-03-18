@@ -3,6 +3,7 @@ using TMPro;
 
 public class GunSystem : MonoBehaviour
 {
+
     //Gun stats
     public Inventory inv; 
     //private int damage;
