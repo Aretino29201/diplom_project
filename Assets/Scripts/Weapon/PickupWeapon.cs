@@ -10,7 +10,8 @@ public class PickupWeapon : MonoBehaviour
     [SerializeField] private int passID, actID, ultID;
     [SerializeField] private TMP_Text pickupText;
     [SerializeField] private WeaponList gunList;
-    private Inventory inv;
+    [SerializeField] private PassiveSkill passSkill;
+    [SerializeField]private Inventory inv;
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") && Input.GetKey(KeyCode.F))
@@ -22,7 +23,7 @@ public class PickupWeapon : MonoBehaviour
                     Debug.Log("Weapon picked");
                     break;
                 case 1:
-                    inv.PickupPasSkill(passID);
+                    passSkill.UsePassiveSkill(passID);
                     Debug.Log("Passive picked");
                     break;
                 case 2:
@@ -41,35 +42,43 @@ public class PickupWeapon : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        inv = other.GetComponent<Inventory>();
-        switch (type)
+        if (other.CompareTag("Player"))
         {
-            case 0:
-                pickupText.text = "Press F to pickup " + weapon.name;
-                break;
-            case 1:
-                pickupText.text = "Press F to pickup Passive skill";
-                break;
-            case 2:
-                pickupText.text = "Press F to pickup Active skill";
-                break;
-            case 3:
-                pickupText.text = "Press F to pickup Ultimate";
-                break;
+            //inv = other.GetComponent<Inventory>();
+            switch (type)
+            {
+                case 0:
+                    pickupText.text = "Press F to pickup " + weapon.name;
+                    break;
+                case 1:
+                    pickupText.text = "Press F to pickup Passive skill " +passID;
+                    break;
+                case 2:
+                    pickupText.text = "Press F to pickup Active skill "+actID;
+                    break;
+                case 3:
+                    pickupText.text = "Press F to pickup Ultimate "+ultID;
+                    break;
+            }
         }
-        pickupText.text = "Press F to pickup "; // + weapon.name;
+        //pickupText.text = "Press F to pickup "; // + weapon.name;
     }
     private void OnTriggerExit(Collider other)
     {
-        pickupText.text = "";
+        if (other.CompareTag("Player"))
+        {
+            pickupText.text = "";
+        }
     }
     private void Start()
     {
         type = Random.Range(0, 4);
-        passID = Random.Range(0, 0);
+        passID = Random.Range(0, 2);
         actID= Random.Range(1, 3);
         ultID= Random.Range(1, 2);
         weapon = gunList.weapons[Random.Range(0, 3)];
         pickupText = GameObject.Find("MessageBox").GetComponent<TMP_Text>();
+        passSkill = GameObject.Find("Player").GetComponent<PassiveSkill>();
+        inv = GameObject.Find("Player").GetComponent<Inventory>();
     }
 }
