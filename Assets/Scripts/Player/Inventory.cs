@@ -11,41 +11,44 @@ public class Inventory : MonoBehaviour
     public List<WeaponData> myWeapons;
     public int currPasSkill, currActSkill, currUlt;
     public ActiveSkill actSkill;
+    public PassiveSkill passSkill;
+    [SerializeField] WeaponData startWeapon;
 
     private void Start()
     {
         player= this.GetComponent<Player>();
         gunSys = this.GetComponent<GunSystem>();
+        passSkill = this.GetComponent<PassiveSkill>();
+        for (int i = 0; i < 10; i++) myWeapons.Add(null);
+        PickupGun(startWeapon);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            gunSys.UpdateGun(myWeapons[0]);
-            currWeapon = myWeapons[0];
+            UpdateGunInHands(0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            gunSys.UpdateGun(myWeapons[1]);
-            currWeapon = myWeapons[1];
+            UpdateGunInHands(1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            gunSys.UpdateGun(myWeapons[2]);
-            currWeapon = myWeapons[2];
+            UpdateGunInHands(2);
         }
     }
     public void PickupGun(WeaponData newGun)
     {
-        myWeapons.Add(newGun);
+        myWeapons[newGun.ammoType] = newGun;
         currWeapon = newGun;
         gunSys.UpdateGun(currWeapon);
     }
 
     public void PickupPasSkill(int newPasSkill)
     {
-        currPasSkill= newPasSkill;    
+        currPasSkill= newPasSkill;
+        passSkill.UsePassiveSkill(currPasSkill);
     }
 
     public void PickupActSkill(int newActSkill)
@@ -56,6 +59,16 @@ public class Inventory : MonoBehaviour
     public void PickupUlt(int newUlt)
     {
         currUlt= newUlt;
+    }
+
+    public void UpdateGunInHands(int key)
+    {
+        if (myWeapons[key] != null)
+        {
+            gunSys.UpdateGun(myWeapons[key]);
+            currWeapon = myWeapons[key];
+        }
+        
     }
 
 

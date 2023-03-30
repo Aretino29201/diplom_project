@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 5951012086027388227}
   - component: {fileID: 4806101706275522825}
   m_Layer: 0
-  m_Name: SM_Prop_Chest_Wood_01
+  m_Name: LootChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

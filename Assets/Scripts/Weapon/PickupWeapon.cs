@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class PickupWeapon : MonoBehaviour
 {
-   [SerializeField] private int type;
+   [SerializeField] private int type; // 0 - w, 1 - p, 2 - a, 3 - u
    [SerializeField] private WeaponData weapon;
     [SerializeField] private int passID, actID, ultID;
     [SerializeField] private TMP_Text pickupText;
     [SerializeField] private WeaponList gunList;
-    [SerializeField] private PassiveSkill passSkill;
     [SerializeField]private Inventory inv;
+    [SerializeField] private bool isWeapon = false;
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") && Input.GetKey(KeyCode.F))
@@ -23,7 +23,8 @@ public class PickupWeapon : MonoBehaviour
                     Debug.Log("Weapon picked");
                     break;
                 case 1:
-                    passSkill.UsePassiveSkill(passID);
+                    
+                    inv.PickupPasSkill(passID);
                     Debug.Log("Passive picked");
                     break;
                 case 2:
@@ -44,7 +45,6 @@ public class PickupWeapon : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //inv = other.GetComponent<Inventory>();
             switch (type)
             {
                 case 0:
@@ -61,7 +61,6 @@ public class PickupWeapon : MonoBehaviour
                     break;
             }
         }
-        //pickupText.text = "Press F to pickup "; // + weapon.name;
     }
     private void OnTriggerExit(Collider other)
     {
@@ -76,9 +75,11 @@ public class PickupWeapon : MonoBehaviour
         passID = Random.Range(0, 2);
         actID= Random.Range(1, 3);
         ultID= Random.Range(1, 2);
-        weapon = gunList.weapons[Random.Range(0, 3)];
+
+        if (isWeapon) type = 0;
+
+        weapon = gunList.weapons[Random.Range(1, 3)];
         pickupText = GameObject.Find("MessageBox").GetComponent<TMP_Text>();
-        passSkill = GameObject.Find("Player").GetComponent<PassiveSkill>();
         inv = GameObject.Find("Player").GetComponent<Inventory>();
     }
 }

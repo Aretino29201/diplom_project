@@ -17,6 +17,7 @@ public class InterfaceManager : MonoBehaviour
     public GameObject deathScreen;
     public TMP_Text ammoText, hpText;
     public Slider ultSlide;
+    public TMP_Text ultText;
 
 
     void Start()
@@ -34,6 +35,7 @@ public class InterfaceManager : MonoBehaviour
         else ammoText.SetText("");
 
         ultSlide.value = ult.currUltCharge/ult.ultCharge;
+        ultText.text = (ult.currUltCharge / ult.ultCharge * 100).ToString() + "%";
     }
     public void DeathOn()
     {

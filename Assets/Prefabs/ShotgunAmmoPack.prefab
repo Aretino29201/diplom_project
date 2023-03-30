@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickedAmmo: 12
-  ammoType: 0
+  ammoType: 1
 --- !u!135 &2739793473356068397
 SphereCollider:
   m_ObjectHideFlags: 0
