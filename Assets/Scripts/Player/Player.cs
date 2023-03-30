@@ -9,18 +9,15 @@ public class Player : MonoBehaviour
     private float maxHealth = 100;
     [SerializeField] private float currHealth;
 
-    [SerializeField] private float modDamage = 1;
-    [SerializeField] private float modHealth = 1;
-    [SerializeField] private float modSpeed = 1;
 
     public InterfaceManager interfaceManager;
 
     public float maxHP { get { return maxHealth; } set { maxHealth = value; } }
     public float currHP { get { return currHealth; } set { currHealth = value; } }
 
-    private void Start()
+    private void Awake()
     {
-        currHealth = maxHealth * modHealth;
+        currHealth = maxHealth;
     }
 
     private void FixedUpdate()
