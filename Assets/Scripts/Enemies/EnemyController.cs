@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         healthPoints = 100;
+        enemyDrop = GameObject.Find("Manager").GetComponent<EnemyDrop>();
     }
     public void TakeDamage(float dmg)
     {
@@ -32,13 +33,14 @@ public class EnemyController : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            DealDamage(other.GetComponent<Player>(), 10);
-        }
-    }
+    // если противник милишный, то ударить игрока
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        DealDamage(other.GetComponent<Player>(), 10);
+    //    }
+    //}
 
     public void DealDamage(Player plr, float dmg)
     {

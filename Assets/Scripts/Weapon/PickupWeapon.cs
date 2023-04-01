@@ -80,6 +80,6 @@ public class PickupWeapon : MonoBehaviour
 
         weapon = gunList.weapons[Random.Range(1, 3)];
         pickupText = GameObject.Find("MessageBox").GetComponent<TMP_Text>();
-        inv = GameObject.Find("Player").GetComponent<Inventory>();
+        inv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
 }

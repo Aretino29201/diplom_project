@@ -11,6 +11,7 @@ public class InterfaceManager : MonoBehaviour
     public Player plr;
     public GunSystem gun;
     public Inventory inv;
+    public PassiveSkill pass;
     public ActiveSkill act;
     public UltSkill ult;
 
@@ -19,9 +20,15 @@ public class InterfaceManager : MonoBehaviour
     public Slider ultSlide;
     public TMP_Text ultText;
 
-
     void Start()
     {
+        plr = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        gun = plr.GetComponent<GunSystem>();
+        inv = plr.GetComponent<Inventory>();
+        pass = plr.GetComponent<PassiveSkill>();
+        act = plr.GetComponent<ActiveSkill>();
+        ult = plr.GetComponent<UltSkill>();
+
         Time.timeScale = 1;
         deathScreen.SetActive(false);
     }

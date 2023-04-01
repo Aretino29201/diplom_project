@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelUnit : MonoBehaviour
 {
-    public Transform levelStart, levelEnd, playerSpawn;
-    public bool isStart;
+    public Transform levelEnd, playerSpawn;
+    public List<GameObject> Enemies;
+    public List<Transform> enemySpawnPoints;
 }
