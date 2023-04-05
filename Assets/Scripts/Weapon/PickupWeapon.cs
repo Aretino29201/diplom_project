@@ -72,12 +72,11 @@ public class PickupWeapon : MonoBehaviour
     private void Start()
     {
         type = Random.Range(0, 4);
+        if (isWeapon) type = 0;
+
         passID = Random.Range(0, 2);
         actID= Random.Range(1, 3);
         ultID= Random.Range(1, 2);
-
-        if (isWeapon) type = 0;
-
         weapon = gunList.weapons[Random.Range(1, 3)];
         pickupText = GameObject.Find("MessageBox").GetComponent<TMP_Text>();
         inv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();

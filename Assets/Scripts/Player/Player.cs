@@ -20,6 +20,11 @@ public class Player : MonoBehaviour
         currHealth = maxHealth;
     }
 
+    private void Start()
+    {
+        interfaceManager = GameObject.Find("Manager").GetComponent<InterfaceManager>();
+    }
+
     private void FixedUpdate()
     {
         
@@ -33,8 +38,7 @@ public class Player : MonoBehaviour
     {
         Time.timeScale = 0;
         interfaceManager.DeathOn();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        
     }
 
 }

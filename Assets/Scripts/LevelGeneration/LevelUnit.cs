@@ -7,4 +7,5 @@ public class LevelUnit : MonoBehaviour
     public Transform levelEnd, playerSpawn;
     public List<GameObject> Enemies;
     public List<Transform> enemySpawnPoints;
+    public GameObject startObj, endObj;
 }

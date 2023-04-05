@@ -46170,14 +46170,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115174855}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3859993751b031d4c9d3da26f1b3f451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelList: {fileID: 11400000, guid: b3c0fc3ed59ce9f4396e10b892c58715, type: 2}
-  plr: {fileID: 3104695729710864454, guid: b03182ef2e28fd24fae73b99e59c8690, type: 3}
-  unitCount: 4
+  levelList: {fileID: 0}
+  plr: {fileID: 0}
+  unitCount: 0
 --- !u!1001 &1117424297
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.AI; //"Editor" not "Engine"
+using UnityEngine.AI;
 
 public class LevelGeneration : MonoBehaviour
 {
@@ -12,8 +12,8 @@ public class LevelGeneration : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        int rand = 0;
-        LevelUnit newUnit = null, prevUnit = null;
+        int rand = 0, enemyRand = 0;
+        LevelUnit newUnit = null;
         Transform lvlEnd = null;
         for (int i = 0; i<unitCount; i++)
         {
@@ -22,22 +22,28 @@ public class LevelGeneration : MonoBehaviour
             {
                 first = false;
                 newUnit = GameObject.Instantiate(levelList.levelUnits[rand]);
+                newUnit.startObj.SetActive(true);
                 GameObject.Instantiate(plr, newUnit.playerSpawn.position, newUnit.playerSpawn.rotation);
             }
             else
             {
                 newUnit = GameObject.Instantiate(levelList.levelUnits[rand], lvlEnd.position, lvlEnd.rotation);
             }
+
+            for(int j = 0; j< levelList.levelUnits[rand].enemySpawnPoints.Count; j++)
+            {
+                enemyRand = Random.Range(0, levelList.levelUnits[rand].Enemies.Count);
+                Instantiate(levelList.levelUnits[rand].Enemies[enemyRand], newUnit.enemySpawnPoints[j].position, newUnit.enemySpawnPoints[j].rotation);
+            }
             lvlEnd = newUnit.levelEnd;
         }
+        newUnit.endObj.SetActive(true);
     }
 
     private void Start()
     {
-        
-
-        NavMeshBuilder.ClearAllNavMeshes();
-        NavMeshBuilder.BuildNavMesh();
+        UnityEditor.AI.NavMeshBuilder.ClearAllNavMeshes();
+        UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
     }
 
 

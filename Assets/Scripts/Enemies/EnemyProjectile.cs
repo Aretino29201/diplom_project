@@ -15,11 +15,15 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             plr = collision.gameObject.GetComponent<Player>();
             plr.currHP-= damage;
             Debug.Log("Ouch!");
+            Destroy(gameObject);
+        }
+        else if( !collision.gameObject.CompareTag("Enemy"))
+        {
             Destroy(gameObject);
         }
 

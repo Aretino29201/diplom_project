@@ -46,10 +46,18 @@ public class InterfaceManager : MonoBehaviour
     }
     public void DeathOn()
     {
-        deathScreen.SetActive(true);
+        deathScreen.SetActive(true); 
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     public void RestartGame()
     {
+        Debug.Log("Restarting...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void ReturnToMenu()
+    {
+        Debug.Log("To Menu!");
+        SceneManager.LoadScene(0);
     }
 }

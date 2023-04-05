@@ -42,6 +42,14 @@ public class Inventory : MonoBehaviour
     {
         myWeapons[newGun.ammoType] = newGun;
         currWeapon = newGun;
+        if (currWeapon.bulletsLeft + currWeapon.magazineSize/4 <= currWeapon.magazineSize)
+        {
+            currWeapon.bulletsLeft += currWeapon.magazineSize/4;
+        }
+        else
+        {
+            currWeapon.bulletsLeft = currWeapon.magazineSize;
+        }
         gunSys.UpdateGun(currWeapon);
     }
 
