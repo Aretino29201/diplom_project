@@ -15,10 +15,12 @@ public class InterfaceManager : MonoBehaviour
     public ActiveSkill act;
     public UltSkill ult;
 
-    public GameObject deathScreen;
+    public GameObject deathScreen, pauseScreen;
     public TMP_Text ammoText, hpText;
     public Slider ultSlide;
     public TMP_Text ultText;
+
+    private bool notPaused = true;
 
     void Start()
     {
@@ -44,11 +46,39 @@ public class InterfaceManager : MonoBehaviour
         ultSlide.value = ult.currUltCharge/ult.ultCharge;
         ultText.text = (ult.currUltCharge / ult.ultCharge * 100).ToString() + "%";
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseOn(notPaused);
+        }
+    }
     public void DeathOn()
     {
         deathScreen.SetActive(true); 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    public void PauseOn(bool pause)
+    {
+        
+        if (pause)
+        {
+            pauseScreen.SetActive(true);
+            Time.timeScale= 0;
+            notPaused = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else
+        {
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+            notPaused= true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
     public void RestartGame()
     {

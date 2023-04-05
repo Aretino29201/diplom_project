@@ -8,6 +8,7 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField] private LevelUnitsContainer levelList;
     [SerializeField] private GameObject plr;
     [SerializeField] private int unitCount;
+    [SerializeField] private NavMeshSurface navMeshSurf;
     bool first = true;
     // Start is called before the first frame update
     void Awake()
@@ -42,8 +43,7 @@ public class LevelGeneration : MonoBehaviour
 
     private void Start()
     {
-        UnityEditor.AI.NavMeshBuilder.ClearAllNavMeshes();
-        UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
+        navMeshSurf.BuildNavMesh();
     }
 
 
