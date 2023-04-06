@@ -232,6 +232,11 @@ MonoBehaviour:
   ultID: 0
   pickupText: {fileID: 0}
   gunList: {fileID: 11400000, guid: 5b67c1a1f179f414e9fa3a93d57228c2, type: 2}
+  passDesc: {fileID: 11400000, guid: 875d42ef661532e489bddf80950e155a, type: 2}
+  actDesc: {fileID: 11400000, guid: f62f18ba21d87ab4481d10b5c9acb173, type: 2}
+  ultDesc: {fileID: 11400000, guid: 5d0186331495db94b9159e3a57e2a7ef, type: 2}
+  inv: {fileID: 0}
+  isWeapon: 0
 --- !u!1 &5424773429788765194
 GameObject:
   m_ObjectHideFlags: 0

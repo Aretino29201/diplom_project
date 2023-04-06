@@ -28,11 +28,11 @@ public class PassiveSkill : MonoBehaviour
         ResetStats();
         switch (psID)
         {
-            case 0:
+            case 1:
                 DoubleHPHalfSpeed();
                 Debug.LogWarning("Slow, but strong");
                 break;
-            case 1:
+            case 2:
                 DoubleSpeedHalfHp();
                 Debug.LogWarning("Fast, but weak");
                 break;
@@ -61,9 +61,9 @@ public class PassiveSkill : MonoBehaviour
 
     private void DoubleSpeedHalfHp()
     {
-        plr.maxHP /= 2;
-        plr.currHP /= 2;
-        ctrl.MaxStableMoveSpeed *= 2;
-        ctrl.MaxAirMoveSpeed *= 2;
+        plr.maxHP /= 1.5f;
+        plr.currHP /= 1.5f;
+        ctrl.MaxStableMoveSpeed *= 1.5f;
+        ctrl.MaxAirMoveSpeed *= 1.5f;
     }
 }

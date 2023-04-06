@@ -8,7 +8,7 @@ public class PickupWeapon : MonoBehaviour
    [SerializeField] private int type; // 0 - w, 1 - p, 2 - a, 3 - u
    [SerializeField] private WeaponData weapon;
     [SerializeField] private int passID, actID, ultID;
-    [SerializeField] private TMP_Text pickupText;
+    [SerializeField] private InterfaceManager interfaceManager;
     [SerializeField] private WeaponList gunList;
     [SerializeField]private Inventory inv;
     [SerializeField] private bool isWeapon = false;
@@ -38,7 +38,8 @@ public class PickupWeapon : MonoBehaviour
             }
 
             Destroy(this.gameObject);
-            pickupText.text = "";
+            interfaceManager.messageBox.text = "";
+            interfaceManager.descriptionBox.text = "";
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -48,16 +49,19 @@ public class PickupWeapon : MonoBehaviour
             switch (type)
             {
                 case 0:
-                    pickupText.text = "Press F to pickup " + weapon.name;
+                    interfaceManager.messageBox.text = "Press F to pickup " + weapon.gunName;
                     break;
                 case 1:
-                    pickupText.text = "Press F to pickup Passive skill " +passID;
+                    interfaceManager.messageBox.text = "Press F to pickup Passive skill " + interfaceManager.passDesc.skillName[passID];
+                    interfaceManager.descriptionBox.text = interfaceManager.passDesc.skillDesc[passID];
                     break;
                 case 2:
-                    pickupText.text = "Press F to pickup Active skill "+actID;
+                    interfaceManager.messageBox.text = "Press F to pickup Active skill "+ interfaceManager.actDesc.skillName[actID];
+                    interfaceManager.descriptionBox.text = interfaceManager.actDesc.skillDesc[passID];
                     break;
                 case 3:
-                    pickupText.text = "Press F to pickup Ultimate "+ultID;
+                    interfaceManager.messageBox.text = "Press F to pickup Ultimate "+ interfaceManager.ultDesc.skillName[ultID];
+                    interfaceManager.descriptionBox.text = interfaceManager.ultDesc.skillDesc[passID];
                     break;
             }
         }
@@ -66,7 +70,8 @@ public class PickupWeapon : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            pickupText.text = "";
+            interfaceManager.messageBox.text = "";
+            interfaceManager.descriptionBox.text = "";
         }
     }
     private void Start()
@@ -74,11 +79,11 @@ public class PickupWeapon : MonoBehaviour
         type = Random.Range(0, 4);
         if (isWeapon) type = 0;
 
-        passID = Random.Range(0, 2);
+        passID = Random.Range(1, 3);
         actID= Random.Range(1, 3);
         ultID= Random.Range(1, 2);
         weapon = gunList.weapons[Random.Range(1, 3)];
-        pickupText = GameObject.Find("MessageBox").GetComponent<TMP_Text>();
+        interfaceManager = GameObject.Find("Manager").GetComponent<InterfaceManager>();
         inv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
 }

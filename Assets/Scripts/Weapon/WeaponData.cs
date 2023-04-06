@@ -7,6 +7,7 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     //Gun stats
+    public string gunName;
     public int ammoType; // 0 - shotgun, 1 - smg, 2 - rpg
     public int damage;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;

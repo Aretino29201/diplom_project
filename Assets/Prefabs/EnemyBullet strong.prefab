@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7589318342355290849}
   - component: {fileID: 2439761460327653710}
   m_Layer: 0
-  m_Name: EnemyBullet
+  m_Name: EnemyBullet strong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844542bd53fed804d87c6636706ebe7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 20
 --- !u!54 &2439761460327653710
 Rigidbody:
   m_ObjectHideFlags: 0
