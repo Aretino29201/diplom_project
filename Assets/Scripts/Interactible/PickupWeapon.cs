@@ -57,11 +57,11 @@ public class PickupWeapon : MonoBehaviour
                     break;
                 case 2:
                     interfaceManager.messageBox.text = "Press F to pickup Active skill "+ interfaceManager.actDesc.skillName[actID];
-                    interfaceManager.descriptionBox.text = interfaceManager.actDesc.skillDesc[passID];
+                    interfaceManager.descriptionBox.text = interfaceManager.actDesc.skillDesc[actID];
                     break;
                 case 3:
                     interfaceManager.messageBox.text = "Press F to pickup Ultimate "+ interfaceManager.ultDesc.skillName[ultID];
-                    interfaceManager.descriptionBox.text = interfaceManager.ultDesc.skillDesc[passID];
+                    interfaceManager.descriptionBox.text = interfaceManager.ultDesc.skillDesc[ultID];
                     break;
             }
         }

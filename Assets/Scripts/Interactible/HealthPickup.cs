@@ -5,7 +5,6 @@ using UnityEngine;
 public class HealthPickup : MonoBehaviour
 {
     [SerializeField] private int pickedHP = 25;
-    [SerializeField] private int ammoType;
     private Player plr;
     float tmpHP;
 

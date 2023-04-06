@@ -16,7 +16,7 @@ public class LevelGeneration : MonoBehaviour
         int rand = 0, enemyRand = 0;
         LevelUnit newUnit = null;
         Transform lvlEnd = null;
-        for (int i = 0; i<unitCount; i++)
+        for (int i = 0; i<levelList.unitGenerationSize; i++)
         {
             rand = Random.Range(0, levelList.levelUnits.Count);
             if (first)

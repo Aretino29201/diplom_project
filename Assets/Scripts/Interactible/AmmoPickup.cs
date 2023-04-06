@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
 {
-    [SerializeField] private int pickedAmmo = 12;
+    [SerializeField] private int pickedAmmo;
     [SerializeField] private int ammoType;
     private List<WeaponData> weaponData;
     private GunSystem gunSys;

@@ -1579,7 +1579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotgunAmmoPack: {fileID: 2739793473356068387, guid: 055fcda8a2cdbdb478c1319f5a71d483,
     type: 3}
-  smgAmmoPack: {fileID: 5828725416030618725, guid: 6f09c6969f8fd6b4fb8435ab3b75b442,
+  smgAmmoPack: {fileID: 2905799455725083006, guid: 5bf289a797f5b404f9fe66260b49cd8c,
     type: 3}
   medpack: {fileID: 260433174506840010, guid: b92c30564e0f365438d2320bcb1d4b37, type: 3}
 --- !u!4 &821361981

@@ -6,4 +6,5 @@ using UnityEngine;
 public class LevelUnitsContainer : ScriptableObject
 {
     public List<LevelUnit> levelUnits;
+    public int unitGenerationSize;
 }
