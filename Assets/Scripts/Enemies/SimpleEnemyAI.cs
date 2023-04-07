@@ -37,7 +37,7 @@ public class SimpleEnemyAI : MonoBehaviour
     private void Update()
     {
         playerInSight = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAtkRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        playerInAtkRange = Physics.Raycast(transform.position, transform.forward, attackRange, whatIsPlayer);// Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
         if (!playerInSight && !playerInAtkRange) Patroling();
         else if(playerInSight && !playerInAtkRange) ChasePlayer();
@@ -69,7 +69,7 @@ public class SimpleEnemyAI : MonoBehaviour
     {
         agent.SetDestination(transform.position);
         transform.LookAt(playerT);
-
+        
         if (!isAtacking)
         {
             //atack code
