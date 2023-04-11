@@ -79,11 +79,12 @@ public class PickupWeapon : MonoBehaviour
         type = Random.Range(0, 4);
         if (isWeapon) type = 0;
 
-        passID = Random.Range(1, 3);
-        actID= Random.Range(1, 3);
-        ultID= Random.Range(1, 2);
-        weapon = gunList.weapons[Random.Range(1, 3)];
         interfaceManager = GameObject.Find("Manager").GetComponent<InterfaceManager>();
         inv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+
+        passID = Random.Range(1, interfaceManager.passDesc.skillName.Count);
+        actID= Random.Range(1, interfaceManager.actDesc.skillName.Count);
+        ultID= Random.Range(1, interfaceManager.ultDesc.skillName.Count);
+        weapon = gunList.weapons[Random.Range(1, gunList.weapons.Count)];
     }
 }
