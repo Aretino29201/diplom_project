@@ -21,6 +21,8 @@ public class InterfaceManager : MonoBehaviour
     public Slider ultSlide;
     public TMP_Text ultText;
 
+    public Image actSkillCdtImage;
+
 
     public SkillsDescription passDesc, actDesc, ultDesc;
     public TMP_Text passName, actName, ultName, messageBox, descriptionBox;
@@ -48,11 +50,28 @@ public class InterfaceManager : MonoBehaviour
         if (gun.isWeapon && !inv.currWeapon.isMelee)
             ammoText.SetText(inv.currWeapon.bulletsLeft / inv.currWeapon.bulletsPerTap + " / " + inv.currWeapon.magazineSize / inv.currWeapon.bulletsPerTap);
         else ammoText.SetText("");
+        
+        
         passName.text = passDesc.skillName[inv.currPasSkill];
+
+
         actName.text = actDesc.skillName[inv.currActSkill];
+        if (act.isCooldown)
+        {
+            //actSkillCdtImage.fillAmount = act.cooldownResetingTime;
+            actSkillCdtImage.color = Color.red;
+        }
+        else
+        {
+            actSkillCdtImage.color = Color.green;
+        }
+
+
         ultName.text = ultDesc.skillName[inv.currUlt];
         ultSlide.value = ult.currUltCharge/ult.ultCharge;
         ultText.text = (ult.currUltCharge / ult.ultCharge * 100).ToString() + "%";
+
+
     }
     private void Update()
     {
@@ -60,6 +79,8 @@ public class InterfaceManager : MonoBehaviour
         {
             PauseOn(notPaused);
         }
+        
+        
     }
     public void DeathOn()
     {

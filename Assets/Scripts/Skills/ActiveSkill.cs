@@ -8,7 +8,8 @@ public class ActiveSkill : MonoBehaviour
     private Player plr;
     private Inventory inv;
     private float cooldownTime;
-    bool isCooldown;
+    public float cooldownResetingTime;
+    public bool isCooldown;
 
     private void Start()
     {
@@ -57,8 +58,6 @@ public class ActiveSkill : MonoBehaviour
                 plr.currHP = plr.maxHP;
             }
         }
-        isCooldown = true;
-        Invoke("ResetCooldown", cooldownTime);
 
     }
     private void ResetCooldown()
