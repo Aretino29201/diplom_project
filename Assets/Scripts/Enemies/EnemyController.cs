@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] float healthPoints;
+    public LevelUnit currLvlUnit;
     Vector3 ammoSpawnPos;
     Quaternion ammoSpawnRot;
     public EnenmyCount enmCount;
@@ -29,7 +30,8 @@ public class EnemyController : MonoBehaviour
         ammoSpawnPos = this.gameObject.transform.position;
         ammoSpawnRot = this.gameObject.transform.rotation;
         enemyDrop.SpawnAmmo(ammoSpawnPos, ammoSpawnRot);
-
+        
+        
         Destroy(this.gameObject);
     }
 
@@ -47,5 +49,8 @@ public class EnemyController : MonoBehaviour
         plr.currHP = plr.currHP - dmg;
         Debug.Log(dmg + " damage dealt");
     }
-
+    private void OnDestroy()
+    {
+        currLvlUnit.OnEnemyDestroyed(this.gameObject);
+    }
 }

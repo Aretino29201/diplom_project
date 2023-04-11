@@ -17,7 +17,7 @@ public class UltSkill : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Q) && currUltCharge >= ultCharge)
+        if (Input.GetKey(KeyCode.Q) && currUltCharge >= ultCharge && inv.currUlt != 0)
         {
             UseUlt(inv.currUlt);
             currUltCharge = 0;

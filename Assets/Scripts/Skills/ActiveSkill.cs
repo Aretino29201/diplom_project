@@ -7,8 +7,7 @@ public class ActiveSkill : MonoBehaviour
     //public int actSkillID;
     private Player plr;
     private Inventory inv;
-    private float cooldownTime;
-    public float cooldownResetingTime;
+    public float cooldownTime;
     public bool isCooldown;
 
     private void Start()
@@ -19,7 +18,7 @@ public class ActiveSkill : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.E) && !isCooldown)
+        if (Input.GetKey(KeyCode.E) && !isCooldown && inv.currActSkill != 0)
         {
             UseActiveSkill(inv.currActSkill);
             isCooldown = true;

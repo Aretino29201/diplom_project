@@ -21,13 +21,14 @@ public class InterfaceManager : MonoBehaviour
     public Slider ultSlide;
     public TMP_Text ultText;
 
-    public Image actSkillCdtImage;
+    public Image actSkillCdtImage, actCgtBG;
 
 
     public SkillsDescription passDesc, actDesc, ultDesc;
     public TMP_Text passName, actName, ultName, messageBox, descriptionBox;
 
     private bool notPaused = true;
+    float cooldownTimeStart = 0;
 
     void Start()
     {
@@ -45,8 +46,8 @@ public class InterfaceManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //вывод на экран здоровья и патронов
         hpText.SetText(((int)plr.currHP).ToString());
-
         if (gun.isWeapon && !inv.currWeapon.isMelee)
             ammoText.SetText(inv.currWeapon.bulletsLeft / inv.currWeapon.bulletsPerTap + " / " + inv.currWeapon.magazineSize / inv.currWeapon.bulletsPerTap);
         else ammoText.SetText("");
@@ -54,19 +55,22 @@ public class InterfaceManager : MonoBehaviour
         
         passName.text = passDesc.skillName[inv.currPasSkill];
 
-
+        //кулдаун активной способности
         actName.text = actDesc.skillName[inv.currActSkill];
         if (act.isCooldown)
         {
-            //actSkillCdtImage.fillAmount = act.cooldownResetingTime;
-            actSkillCdtImage.color = Color.red;
+            cooldownTimeStart += Time.fixedDeltaTime;
+            Debug.Log(cooldownTimeStart);
+            actSkillCdtImage.fillAmount = cooldownTimeStart / act.cooldownTime;
+            actCgtBG.color = Color.red;
         }
         else
         {
-            actSkillCdtImage.color = Color.green;
+            cooldownTimeStart = 0;
+            actCgtBG.color = Color.green;
         }
 
-
+        //заряд ультимейта
         ultName.text = ultDesc.skillName[inv.currUlt];
         ultSlide.value = ult.currUltCharge/ult.ultCharge;
         ultText.text = (ult.currUltCharge / ult.ultCharge * 100).ToString() + "%";

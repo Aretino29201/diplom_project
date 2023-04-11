@@ -16,6 +16,7 @@ public class LevelGeneration : MonoBehaviour
         int rand = 0, enemyRand = 0;
         LevelUnit newUnit = null;
         Transform lvlEnd = null;
+        GameObject enemy = null;
         for (int i = 0; i<levelList.unitGenerationSize; i++)
         {
             rand = Random.Range(0, levelList.levelUnits.Count);
@@ -34,7 +35,9 @@ public class LevelGeneration : MonoBehaviour
             for(int j = 0; j< levelList.levelUnits[rand].enemySpawnPoints.Count; j++)
             {
                 enemyRand = Random.Range(0, levelList.levelUnits[rand].Enemies.Count);
-                Instantiate(levelList.levelUnits[rand].Enemies[enemyRand], newUnit.enemySpawnPoints[j].position, newUnit.enemySpawnPoints[j].rotation);
+                enemy = Instantiate(levelList.levelUnits[rand].Enemies[enemyRand], newUnit.enemySpawnPoints[j].position, newUnit.enemySpawnPoints[j].rotation);
+                enemy.GetComponent<EnemyController>().currLvlUnit = newUnit;
+                newUnit.enemies.Add(enemy);
             }
             lvlEnd = newUnit.levelEnd;
         }
