@@ -17,6 +17,6 @@ public class LevelUnit : MonoBehaviour
    public void OnEnemyDestroyed(GameObject enemy)
     {
         enemies.Remove(enemy);
-        if (enemies.Count == 0) { closePath.SetActive(false); }
+        if (enemies.Count == 0 && closePath != null) { closePath.SetActive(false); }
     }
 }
