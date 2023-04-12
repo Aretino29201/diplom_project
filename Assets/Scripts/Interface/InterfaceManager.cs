@@ -25,10 +25,10 @@ public class InterfaceManager : MonoBehaviour
 
 
     public SkillsDescription passDesc, actDesc, ultDesc;
-    public TMP_Text passName, actName, ultName, messageBox, descriptionBox;
+    public TMP_Text passName, actName, ultName, messageBox, descriptionBox, actSkillCdText;
 
-    private bool notPaused = true;
-    float cooldownTimeStart = 0;
+    private bool notPaused = true, setTempCD = true;
+    float cooldownTimeStart = 0, cooldownTemp;
 
     void Start()
     {
@@ -59,15 +59,29 @@ public class InterfaceManager : MonoBehaviour
         actName.text = actDesc.skillName[inv.currActSkill];
         if (act.isCooldown)
         {
+            if (setTempCD)
+            {
+                cooldownTemp = act.cooldownTime;
+                setTempCD = false;
+            }
+
             cooldownTimeStart += Time.fixedDeltaTime;
-            Debug.Log(cooldownTimeStart);
+            cooldownTemp -= Time.fixedDeltaTime;
+            actSkillCdText.text = Mathf.RoundToInt(cooldownTemp).ToString();
             actSkillCdtImage.fillAmount = cooldownTimeStart / act.cooldownTime;
             actCgtBG.color = Color.red;
         }
+        else if(inv.currActSkill == 0)
+        {
+            actSkillCdText.text = "";
+            actCgtBG.color = Color.grey;
+        }
         else
         {
+            actSkillCdText.text = "";
             cooldownTimeStart = 0;
             actCgtBG.color = Color.green;
+            setTempCD = true;
         }
 
         //заряд ультимейта
