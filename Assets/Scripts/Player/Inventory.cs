@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public ActiveSkill actSkill;
     public PassiveSkill passSkill;
     [SerializeField] WeaponData startWeapon;
+    int lastWeaponID;
 
     private void Start()
     {
@@ -36,6 +37,29 @@ public class Inventory : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             UpdateGunInHands(2);
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+        {
+            try
+            {
+                UpdateGunInHands(lastWeaponID + 1);
+            }
+            catch
+            {
+                UpdateGunInHands(0);
+            }
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+        {
+            try
+            {
+                UpdateGunInHands(lastWeaponID - 1);
+            }
+            catch
+            {
+                UpdateGunInHands(2);//ÏÎÌÅÍßÒÜ ÍÀ ÌÅÑÈÌÀËÜÍÎÅ ÇÍÀ×ÅÍÈÅ ÏÓØÅÊ
+            }
         }
     }
     public void PickupGun(WeaponData newGun)
@@ -73,6 +97,7 @@ public class Inventory : MonoBehaviour
     {
         if (myWeapons[key] != null)
         {
+            lastWeaponID = key;
             gunSys.UpdateGun(myWeapons[key]);
             currWeapon = myWeapons[key];
         }

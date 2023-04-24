@@ -37,7 +37,7 @@ public class ActiveSkill : MonoBehaviour
                 Debug.Log("Healed myself");
                 break;
             case 2:
-                UnbreakableArmor(3, 10);
+                UnbreakableArmor(5, 12);
                 Debug.Log("ARMOR");
                 break;
             case 3:
