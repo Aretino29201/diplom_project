@@ -12,6 +12,7 @@ public class ChangeGenerationSize : MonoBehaviour
 
     private void Start()
     {
+        levelUnits.unitGenerationSize = 10;
         textBox.text = levelUnits.unitGenerationSize.ToString();
     }
     public void ChangeGenSize(TMP_InputField textInput)

@@ -40,6 +40,10 @@ public class ActiveSkill : MonoBehaviour
                 UnbreakableArmor(3, 10);
                 Debug.Log("ARMOR");
                 break;
+            case 3:
+                SlowTime(5, 15);
+                Debug.Log("Slow Time!!!");
+                break;
             default:
                 Debug.Log("No active skills");
                 break;
@@ -80,6 +84,23 @@ public class ActiveSkill : MonoBehaviour
          yield return new WaitForSeconds(d);
         plr.currHP = tempHP;
         //StopCoroutine(Shield(d));
+
+    }
+
+    private void SlowTime(float duration, float cdt)
+    {
+        cooldownTime = cdt;
+        StartCoroutine(SlowT(duration));
+
+    }
+
+    private IEnumerator SlowT(float d)
+    {
+        //todo
+        Time.timeScale = 0.5f;
+        
+        yield return new WaitForSeconds(d);
+        Time.timeScale = 1f;
 
     }
 }
