@@ -24,7 +24,7 @@ public class SimpleEnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSight, playerInAtkRange;
 
-    public GameObject projectile;
+    public PlayerProjectile projectile;
     public float projectileFwdSpeed = 32, projectileUpSpeed =  8; 
 
 
@@ -75,7 +75,7 @@ public class SimpleEnemyAI : MonoBehaviour
             //atack code
             Rigidbody rb = Instantiate(projectile,new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
 
-            rb.AddForce(transform.forward * projectileFwdSpeed, ForceMode.Impulse);
+            rb.AddForce(transform.forward * projectile.pSpeed, ForceMode.Impulse);
             rb.AddForce(transform.up * projectileUpSpeed, ForceMode.Impulse);
             //
             isAtacking = true;

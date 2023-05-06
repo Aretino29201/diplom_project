@@ -31,6 +31,9 @@ public class GunSystem : MonoBehaviour
     public Transform renderPoint;
     private GameObject gunModel;
 
+    public bool isProjectile;
+    public PlayerProjectile projectile;
+
 
     private void Start()
     {
@@ -79,35 +82,48 @@ public class GunSystem : MonoBehaviour
         float x = Random.Range(-inv.currWeapon.spread, inv.currWeapon.spread);
         float y = Random.Range(-inv.currWeapon.spread, inv.currWeapon.spread);
 
-        //Calculate Direction with Spread
+        
+            //Calculate Direction with Spread
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
-        //RayCast
-        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, inv.currWeapon.range, whatIsEnemy))
-        {
-            //Debug.Log(rayHit.collider.name);
-            //--------------------------------------------------------ENEMY HIT------------------------------------
-            if (rayHit.collider.CompareTag("Enemy"))
-            {
-                rayHit.collider.GetComponent<EnemyController>().TakeDamage(inv.currWeapon.damage);
-                if (ult.currUltCharge < ult.ultCharge)
-                    ult.currUltCharge += (inv.currWeapon.damage / 10);
-                if (ult.currUltCharge > ult.ultCharge)
-                    ult.currUltCharge = ult.ultCharge;
 
+        if (!isProjectile)
+        {
+            //RayCast
+            if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, inv.currWeapon.range, whatIsEnemy))
+            {
+                //Debug.Log(rayHit.collider.name);
+                //--------------------------------------------------------ENEMY HIT------------------------------------
+                if (rayHit.collider.CompareTag("Enemy"))
+                {
+                    rayHit.collider.GetComponent<EnemyController>().TakeDamage(inv.currWeapon.damage);
+                    if (ult.currUltCharge < ult.ultCharge)
+                        ult.currUltCharge += (inv.currWeapon.damage / 10);
+                    if (ult.currUltCharge > ult.ultCharge)
+                        ult.currUltCharge = ult.ultCharge;
+
+                }
+            }
+
+
+            //ShakeCamera
+            //  camShake.Shake(camShakeDuration, camShakeMagnitude);
+
+            //Graphics
+            Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
+            // Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+            if (!inv.currWeapon.isMelee)
+            {
+                inv.currWeapon.bulletsLeft--;
+                inv.currWeapon.bulletsShot--;
             }
         }
-
-        //ShakeCamera
-      //  camShake.Shake(camShakeDuration, camShakeMagnitude);
-
-        //Graphics
-        Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
-        // Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-        if (!inv.currWeapon.isMelee)
+        else // isProjectile
         {
-            inv.currWeapon.bulletsLeft--;
-            inv.currWeapon.bulletsShot--;
+            Rigidbody rb = Instantiate(projectile, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
+
+            rb.AddForce(transform.forward * projectile.pSpeed, ForceMode.Impulse);
+            
         }
 
         Invoke("ResetShot", inv.currWeapon.timeBetweenShooting);
