@@ -22,9 +22,9 @@ public class SimpleEnemyAI : MonoBehaviour
 
     //States
     public float sightRange, attackRange;
-    public bool playerInSight, playerInAtkRange;
+    public bool playerInSight, playerInAtkRange, isPlayerInvis;
 
-    public PlayerProjectile projectile;
+    public GameObject projectile;
     public float projectileFwdSpeed = 32, projectileUpSpeed =  8; 
 
 
@@ -39,9 +39,9 @@ public class SimpleEnemyAI : MonoBehaviour
         playerInSight = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAtkRange = Physics.Raycast(transform.position, transform.forward, attackRange, whatIsPlayer);// Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSight && !playerInAtkRange) Patroling();
-        else if(playerInSight && !playerInAtkRange) ChasePlayer();
-        else if(playerInAtkRange)AttackPlayer();
+        if (!playerInSight && !playerInAtkRange || isPlayerInvis) Patroling();
+        else if(playerInSight && !playerInAtkRange && !isPlayerInvis) ChasePlayer();
+        else if(playerInAtkRange && !isPlayerInvis)AttackPlayer();
     }
 
     //State func
@@ -75,7 +75,7 @@ public class SimpleEnemyAI : MonoBehaviour
             //atack code
             Rigidbody rb = Instantiate(projectile,new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
 
-            rb.AddForce(transform.forward * projectile.pSpeed, ForceMode.Impulse);
+            rb.AddForce(transform.forward * projectileFwdSpeed, ForceMode.Impulse);
             rb.AddForce(transform.up * projectileUpSpeed, ForceMode.Impulse);
             //
             isAtacking = true;

@@ -9,6 +9,7 @@ public class ActiveSkill : MonoBehaviour
     private Inventory inv;
     public float cooldownTime;
     public bool isCooldown;
+    public PlayerProjectile podstvolPref;
 
     private void Start()
     {
@@ -33,16 +34,19 @@ public class ActiveSkill : MonoBehaviour
         switch (asID)
         {
             case 1:
-                SelfHeal(50, 10);
-                Debug.Log("Healed myself");
+                SelfHeal(plr.maxHP/2, 10);
                 break;
             case 2:
-                UnbreakableArmor(5, 12);
-                Debug.Log("ARMOR");
+                UnbreakableArmor(5, 15);
                 break;
             case 3:
-                SlowTime(5, 15);
-                Debug.Log("Slow Time!!!");
+                SlowTime(5, 12);
+                break;
+            case 4:
+                Podstvol(8);
+                break;
+            case 5:
+                Invisibility(5, 20);
                 break;
             default:
                 Debug.Log("No active skills");
@@ -101,6 +105,40 @@ public class ActiveSkill : MonoBehaviour
         
         yield return new WaitForSeconds(d);
         Time.timeScale = 1f;
+
+    }
+
+    private void Podstvol(float cdt)
+    {
+        cooldownTime = cdt;
+        Rigidbody rb = Instantiate(podstvolPref, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
+        rb.AddForce(this.GetComponent<GunSystem>().fpsCam.transform.forward * podstvolPref.pSpeed, ForceMode.Impulse);
+    }
+
+
+
+
+    private void Invisibility(float duration, float cdt)
+    {
+        cooldownTime = cdt;
+        StartCoroutine(Invis(duration));
+
+    }
+    private IEnumerator Invis(float d)
+    {
+        //todo
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<SimpleEnemyAI>().isPlayerInvis = true;
+        }
+
+        yield return new WaitForSeconds(d);
+        foreach (GameObject enemy in enemies)
+        {
+            if(enemy!= null)
+            enemy.GetComponent<SimpleEnemyAI>().isPlayerInvis = false;
+        }
 
     }
 }

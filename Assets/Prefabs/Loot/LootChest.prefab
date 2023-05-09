@@ -230,13 +230,11 @@ MonoBehaviour:
   passID: 0
   actID: 0
   ultID: 0
-  pickupText: {fileID: 0}
+  interfaceManager: {fileID: 0}
   gunList: {fileID: 11400000, guid: 5b67c1a1f179f414e9fa3a93d57228c2, type: 2}
-  passDesc: {fileID: 11400000, guid: 875d42ef661532e489bddf80950e155a, type: 2}
-  actDesc: {fileID: 11400000, guid: f62f18ba21d87ab4481d10b5c9acb173, type: 2}
-  ultDesc: {fileID: 11400000, guid: 5d0186331495db94b9159e3a57e2a7ef, type: 2}
   inv: {fileID: 0}
   isWeapon: 0
+  pointLight: {fileID: 2158800921235180680}
 --- !u!1 &5424773429788765194
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5424773429788765194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

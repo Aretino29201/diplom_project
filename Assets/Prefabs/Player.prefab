@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 418edf7d034b5954cbe05e913eaead0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapons: {fileID: 11400000, guid: 5b67c1a1f179f414e9fa3a93d57228c2, type: 2}
   id: 0
 --- !u!114 &3104695729710864465
 MonoBehaviour:
@@ -248,6 +249,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23972a40de94ea42bfc83a763a9a376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldownTime: 0
+  isCooldown: 0
+  podstvolPref: {fileID: 2502839403146885780, guid: 12724382619723646b9cbc6cb44e595b,
+    type: 3}
 --- !u!114 &3104695729710864466
 MonoBehaviour:
   m_ObjectHideFlags: 0

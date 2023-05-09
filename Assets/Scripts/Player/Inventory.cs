@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     public ActiveSkill actSkill;
     public PassiveSkill passSkill;
     [SerializeField] WeaponData startWeapon;
-    int lastWeaponID;
+    int lastWeaponID = 0;
 
     private void Start()
     {
@@ -38,30 +38,73 @@ public class Inventory : MonoBehaviour
         {
             UpdateGunInHands(2);
         }
-
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            try
-            {
-                UpdateGunInHands(lastWeaponID + 1);
-            }
-            catch
-            {
-                UpdateGunInHands(0);
-            }
+            UpdateGunInHands(3);
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            try
-            {
-                UpdateGunInHands(lastWeaponID - 1);
-            }
-            catch
-            {
-                UpdateGunInHands(2);//ÏÎÌÅÍßÒÜ ÍÀ ÌÅÑÈÌÀËÜÍÎÅ ÇÍÀ×ÅÍÈÅ ÏÓØÅÊ
-            }
+            UpdateGunInHands(4);
         }
     }
+
+    //    if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+    //    {
+    //        try
+    //        {
+    //            ScrollUpGun();
+    //        }
+    //        catch
+    //        {
+    //            while (myWeapons[lastWeaponID] == null)
+    //            {
+    //                lastWeaponID++;
+    //            }
+                
+    //        }
+    //    }
+    //    if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+    //    {
+    //        try
+    //        {
+    //            ScrollDownGun();
+    //        }
+    //        catch
+    //        {
+    //            while (myWeapons[lastWeaponID] == null)
+    //            {
+    //                lastWeaponID--;
+    //            }
+    //        }
+    //    }
+    //}
+
+    //private void ScrollUpGun()
+    //{
+        
+    //        lastWeaponID++;
+
+    //    if (lastWeaponID >= myWeapons.Count)
+    //    {
+    //        lastWeaponID = 0;
+    //    }
+
+    //    UpdateGunInHands(lastWeaponID);
+    //}
+
+    //private void ScrollDownGun()
+    //{
+    //        lastWeaponID--;
+
+    //    if (lastWeaponID < 0)
+    //    {
+    //        lastWeaponID = myWeapons.Count - 1;
+    //    }
+
+    //    UpdateGunInHands(lastWeaponID);
+    //}
+
+
     public void PickupGun(WeaponData newGun)
     {
         myWeapons[newGun.ammoType] = newGun;
@@ -97,7 +140,6 @@ public class Inventory : MonoBehaviour
     {
         if (myWeapons[key] != null)
         {
-            lastWeaponID = key;
             gunSys.UpdateGun(myWeapons[key]);
             currWeapon = myWeapons[key];
         }

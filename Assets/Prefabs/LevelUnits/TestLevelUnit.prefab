@@ -509,11 +509,9 @@ MonoBehaviour:
   levelEnd: {fileID: 9207351361269945031}
   playerSpawn: {fileID: 9207351360617654822}
   Enemies:
-  - {fileID: 3819039411951992448, guid: 737aba0daca675b498ed649753c379d6, type: 3}
   - {fileID: 3778595674148229723, guid: bf1822519511d114abf35db86b7352c2, type: 3}
   enemySpawnPoints:
   - {fileID: 695356927299689009}
-  - {fileID: 5725833310014406680}
   startObj: {fileID: 9036530802806899326}
   endObj: {fileID: 3191937518881068012}
   closePath: {fileID: 6269122935145464811}

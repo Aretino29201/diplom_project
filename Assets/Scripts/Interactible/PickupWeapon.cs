@@ -12,6 +12,7 @@ public class PickupWeapon : MonoBehaviour
     [SerializeField] private WeaponList gunList;
     [SerializeField]private Inventory inv;
     [SerializeField] private bool isWeapon = false;
+    [SerializeField] private Light pointLight;
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") && Input.GetKey(KeyCode.F))
@@ -86,5 +87,21 @@ public class PickupWeapon : MonoBehaviour
         actID= Random.Range(1, interfaceManager.actDesc.skillName.Count);
         ultID= Random.Range(1, interfaceManager.ultDesc.skillName.Count);
         weapon = gunList.weapons[Random.Range(1, gunList.weapons.Count)];
+
+        switch (type)
+        {
+            case 0:
+                pointLight.color = Color.white;
+                break;
+            case 1:
+                pointLight.color = Color.green;
+                break;
+            case 2:
+                pointLight.color = Color.red;
+                break;
+            case 3:
+                pointLight.color = Color.yellow;
+                break;
+        }
     }
 }
