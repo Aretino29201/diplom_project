@@ -13,7 +13,8 @@ public class PlayerProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("GoesThru")) ;
+        else
         {
             Instantiate(plrExplos,new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             Destroy(this.gameObject);   

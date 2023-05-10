@@ -1,3 +1,4 @@
+using KinematicCharacterController.Examples;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,16 @@ public class UltSkill : MonoBehaviour
 {
     private Player plr;
     private Inventory inv;
+    ExampleCharacterController ctrl;
     public float ultCharge, currUltCharge;
     bool isCharging;
+    public PlayerProjectile rocketPref;
 
     private void Start()
     {
         inv = GetComponent<Inventory>();
         plr = GetComponent<Player>();
+        ctrl = GetComponent<ExampleCharacterController>();
     }
 
     private void Update()
@@ -34,7 +38,7 @@ public class UltSkill : MonoBehaviour
                 Debug.Log("Boom");
                 break;
             case 2:
-
+                StartCoroutine(RocketBarrage(0.2f, 30));
                 Debug.Log("");
                 break;
             default:
@@ -66,21 +70,30 @@ public class UltSkill : MonoBehaviour
     //    Debug.Log("Cooldown reseted");
     //}
 
-    private void UnbreakableArmor(float duration, float cdt)
-    {
-        ultCharge = cdt;
-        StartCoroutine(Shield(duration));
+    
+        
+    
 
-    }
-
-    private IEnumerator Shield(float d)
+    private IEnumerator RocketBarrage(float durat, int rAmount)
     {
-        //todo
-        float tempHP = plr.currHP;
-        plr.currHP = 999999999999;
-        yield return new WaitForSeconds(d);
-        plr.currHP = tempHP;
-        //StopCoroutine(Shield(d));
+
+        ctrl.MaxStableMoveSpeed /= 3f;
+        ctrl.MaxAirMoveSpeed /= 3f;
+        ctrl.JumpUpSpeed = 0;
+        for (int i = 0; i <= rAmount; i++) {
+            float x = Random.Range(-0.5f, 0.5f);
+            float y = Random.Range(-0.5f, 0.5f);
+            Rigidbody rb = Instantiate(rocketPref, new Vector3(transform.position.x + x, transform.position.y + 1.5f + y, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(this.GetComponent<GunSystem>().fpsCam.transform.forward * rocketPref.pSpeed, ForceMode.Impulse);
+
+            yield return new WaitForSeconds(durat); 
+        }
+        ctrl.MaxStableMoveSpeed *= 3f;
+        ctrl.MaxAirMoveSpeed *= 3f;
+        ctrl.JumpUpSpeed = 10;
+        
+
+
 
     }
 }
