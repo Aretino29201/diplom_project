@@ -12,20 +12,19 @@ public class EnemyProjectile : MonoBehaviour
         
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            plr = collision.gameObject.GetComponent<Player>();
-            plr.currHP-= damage;
+            plr = other.gameObject.GetComponent<Player>();
+            plr.currHP -= damage;
             Debug.Log("Ouch!");
             Destroy(gameObject);
         }
-        else if( !collision.gameObject.CompareTag("Enemy"))
+        else if (!other.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
         }
-
     }
+    
 }

@@ -95,7 +95,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3778595674148229723}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 100
+  currLvlUnit: {fileID: 0}
   enmCount: {fileID: 0}
   enemyDrop: {fileID: 0}
 --- !u!195 &4533037257607907329

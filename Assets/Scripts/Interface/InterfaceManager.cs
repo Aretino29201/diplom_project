@@ -87,7 +87,7 @@ public class InterfaceManager : MonoBehaviour
         //заряд ультимейта
         ultName.text = ultDesc.skillName[inv.currUlt];
         ultSlide.value = ult.currUltCharge/ult.ultCharge;
-        ultText.text = (ult.currUltCharge / ult.ultCharge * 100).ToString() + "%";
+        ultText.text = ((int)(ult.currUltCharge / ult.ultCharge * 100)).ToString() + "%";
 
 
     }

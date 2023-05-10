@@ -5,32 +5,42 @@ using UnityEngine;
 public class PlayerProjectile : MonoBehaviour
 {
     public float pSpeed;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public PlayerExplosion plrExplos;
+    bool enemyInExplos;
+    public LayerMask playerLayer;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (!other.CompareTag("Player"))
         {
-
-        }
-        else
-        {
-            ProjectileExplosion();
+            Instantiate(plrExplos,new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            Destroy(this.gameObject);   
         }
     }
 
-    public void ProjectileExplosion()
+        private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Boom!!!!!!!!!!!!!!!!");
+        
     }
+    //    if (collision.gameObject.CompareTag("Enemy"))
+    //    {
+    //        collision.gameObject.GetComponent<EnemyController>().TakeDamage(1.5f*damage);
+    //        ProjectileExplosion();
+    //    }
+    //    else
+    //    {
+    //        ProjectileExplosion();
+    //    }
+    //}
+    //public void ProjectileExplosion()
+    //{
+    //    // партиклы взрыва
+    //    enemyInExplos = Physics.CheckSphere(transform.position, explosRange, enemyLayer);        
+    //    if (enemyInExplos) 
+    //    {            
+    //    }
+    //    Debug.Log("Boom!!!!!!!!!!!!!!!!");
+    
 }

@@ -1448,6 +1448,12 @@ MonoBehaviour:
   smgAmmoPack: {fileID: 2905799455725083006, guid: 5bf289a797f5b404f9fe66260b49cd8c,
     type: 3}
   medpack: {fileID: 260433174506840010, guid: b92c30564e0f365438d2320bcb1d4b37, type: 3}
+  dropItems:
+  - {fileID: 260433174506840010, guid: b92c30564e0f365438d2320bcb1d4b37, type: 3}
+  - {fileID: 2739793473356068387, guid: 055fcda8a2cdbdb478c1319f5a71d483, type: 3}
+  - {fileID: 2905799455725083006, guid: 5bf289a797f5b404f9fe66260b49cd8c, type: 3}
+  - {fileID: 2905799455725083006, guid: 08d3364672d7c474b86decf08645d285, type: 3}
+  - {fileID: 2905799455725083006, guid: 1d0e62c8774df6c4788c8f157c5f9765, type: 3}
 --- !u!4 &821361981
 Transform:
   m_ObjectHideFlags: 0

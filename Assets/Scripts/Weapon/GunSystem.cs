@@ -31,8 +31,7 @@ public class GunSystem : MonoBehaviour
     public Transform renderPoint;
     private GameObject gunModel;
 
-    public bool isProjectile;
-    public PlayerProjectile projectile;
+   
 
 
     private void Start()
@@ -87,7 +86,7 @@ public class GunSystem : MonoBehaviour
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
 
-        if (!isProjectile)
+        if (!inv.currWeapon.isProjectile)
         {
             //RayCast
             if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, inv.currWeapon.range, whatIsEnemy))
@@ -111,20 +110,20 @@ public class GunSystem : MonoBehaviour
 
             //Graphics
             Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
-            // Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-            if (!inv.currWeapon.isMelee)
-            {
-                inv.currWeapon.bulletsLeft--;
-                inv.currWeapon.bulletsShot--;
-            }
         }
         else // isProjectile
         {
-            Rigidbody rb = Instantiate(projectile, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(inv.currWeapon.projectile, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(direction * inv.currWeapon.projectile.pSpeed, ForceMode.Impulse);
 
-            rb.AddForce(transform.forward * projectile.pSpeed, ForceMode.Impulse);
-            
         }
+        // Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        if (!inv.currWeapon.isMelee)
+        {
+            inv.currWeapon.bulletsLeft--;
+            inv.currWeapon.bulletsShot--;
+        }
+       
 
         Invoke("ResetShot", inv.currWeapon.timeBetweenShooting);
 
