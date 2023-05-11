@@ -11,6 +11,7 @@ public class UltSkill : MonoBehaviour
     public float ultCharge, currUltCharge;
     bool isCharging;
     public PlayerProjectile rocketPref;
+    public WeaponList weapons;
 
     private void Start()
     {
@@ -35,11 +36,12 @@ public class UltSkill : MonoBehaviour
         {
             case 1:
                 BigBoom(20);
-                Debug.Log("Boom");
                 break;
             case 2:
-                StartCoroutine(RocketBarrage(0.2f, 30));
-                Debug.Log("");
+                StartCoroutine(RocketBarrage(0.2f, 20));
+                break;
+            case 3:
+                StartCoroutine(Berserker(5f));
                 break;
             default:
                 Debug.Log("No ult");
@@ -91,9 +93,39 @@ public class UltSkill : MonoBehaviour
         ctrl.MaxStableMoveSpeed *= 3f;
         ctrl.MaxAirMoveSpeed *= 3f;
         ctrl.JumpUpSpeed = 10;
+    }
+
+    private IEnumerator Berserker(float durat)
+    {
+        int[] tempAmmo = new int[weapons.weapons.Count];
+        for (int i = 0; i<weapons.weapons.Count; i++)
+        {
+            if (weapons.weapons[i] != null)
+            {
+                tempAmmo[i] = weapons.weapons[i].bulletsLeft;
+
+                weapons.weapons[i].bulletsLeft = 9999999;
+                weapons.weapons[i].timeBetweenShooting /= 2;
+            }
+        }
+        ctrl.MaxStableMoveSpeed *= 1.5f;
+        ctrl.MaxAirMoveSpeed *= 1.5f;
         
 
 
+            yield return new WaitForSeconds(durat);
 
+        for (int i = 0; i < weapons.weapons.Count; i++)
+        {
+            if (weapons.weapons[i] != null)
+            {
+                weapons.weapons[i].bulletsLeft = tempAmmo[i];
+
+                weapons.weapons[i].timeBetweenShooting *= 2;
+            }
+        }
+
+        ctrl.MaxStableMoveSpeed /= 1.5f;
+        ctrl.MaxAirMoveSpeed /= 1.5f;
     }
 }
