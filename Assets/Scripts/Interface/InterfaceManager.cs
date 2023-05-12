@@ -16,7 +16,7 @@ public class InterfaceManager : MonoBehaviour
     public UltSkill ult;
      
 
-    public GameObject deathScreen, pauseScreen;
+    public GameObject deathScreen, pauseScreen, resurrectScreen;
     public TMP_Text ammoText, hpText;
     public Slider ultSlide;
     public TMP_Text ultText;

@@ -24,7 +24,6 @@ public class ActiveSkill : MonoBehaviour
             UseActiveSkill(inv.currActSkill);
             isCooldown = true;
             Invoke("ResetCooldown", cooldownTime);
-
         }
     }
 

@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currHealth: 0
+  canRes: 0
   interfaceManager: {fileID: 0}
 --- !u!114 &3104695729710864463
 MonoBehaviour:
@@ -273,6 +274,9 @@ MonoBehaviour:
   rocketPref: {fileID: 2502839403146885780, guid: 12724382619723646b9cbc6cb44e595b,
     type: 3}
   weapons: {fileID: 11400000, guid: 5b67c1a1f179f414e9fa3a93d57228c2, type: 2}
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &3104695729871772802
 GameObject:
   m_ObjectHideFlags: 0

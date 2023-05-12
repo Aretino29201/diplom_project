@@ -12,20 +12,31 @@ public class UltSkill : MonoBehaviour
     bool isCharging;
     public PlayerProjectile rocketPref;
     public WeaponList weapons;
+    InterfaceManager intManager;
+    public LayerMask whatIsEnemy;
 
     private void Start()
     {
         inv = GetComponent<Inventory>();
         plr = GetComponent<Player>();
         ctrl = GetComponent<ExampleCharacterController>();
+        intManager = GameObject.Find("Manager").GetComponent<InterfaceManager>();
     }
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.Q) && currUltCharge >= ultCharge && inv.currUlt != 0)
         {
-            UseUlt(inv.currUlt);
-            currUltCharge = 0;
+            if (inv.currUlt != 4)
+            {
+                UseUlt(inv.currUlt);
+                currUltCharge = 0;
+            }
+            else if(inv.currUlt == 4 && plr.currHP <=0 && plr.canRes)
+            {
+                UseUlt(inv.currUlt);
+                currUltCharge = 0;
+            }
         }
     }
 
@@ -41,7 +52,13 @@ public class UltSkill : MonoBehaviour
                 StartCoroutine(RocketBarrage(0.2f, 20));
                 break;
             case 3:
-                StartCoroutine(Berserker(5f));
+                StartCoroutine(Berserker(7.5f));
+                break;
+            case 4:
+                Resurrect();
+                break;
+            case 5:
+               StartCoroutine(Vampire(0.2f,10,2));
                 break;
             default:
                 Debug.Log("No ult");
@@ -61,27 +78,13 @@ public class UltSkill : MonoBehaviour
 
     }
 
-    //rocket barrage!!!!!!!!
-
-
-
-
-    //private void ResetCooldown()
-    //{
-    //    isCooldown = false;
-    //    Debug.Log("Cooldown reseted");
-    //}
-
-    
-        
-    
-
     private IEnumerator RocketBarrage(float durat, int rAmount)
     {
 
         ctrl.MaxStableMoveSpeed /= 3f;
         ctrl.MaxAirMoveSpeed /= 3f;
         ctrl.JumpUpSpeed = 0;
+        GetComponent<GunSystem>().renderPoint.gameObject.SetActive(false);
         for (int i = 0; i <= rAmount; i++) {
             float x = Random.Range(-0.5f, 0.5f);
             float y = Random.Range(-0.5f, 0.5f);
@@ -90,6 +93,7 @@ public class UltSkill : MonoBehaviour
 
             yield return new WaitForSeconds(durat); 
         }
+        GetComponent<GunSystem>().renderPoint.gameObject.SetActive(true);
         ctrl.MaxStableMoveSpeed *= 3f;
         ctrl.MaxAirMoveSpeed *= 3f;
         ctrl.JumpUpSpeed = 10;
@@ -127,5 +131,30 @@ public class UltSkill : MonoBehaviour
 
         ctrl.MaxStableMoveSpeed /= 1.5f;
         ctrl.MaxAirMoveSpeed /= 1.5f;
+    }
+
+    private void Resurrect()
+    {
+        plr.currHP = plr.maxHP;
+        Time.timeScale = 1;
+        intManager.resurrectScreen.SetActive(false);
+    }
+
+    private IEnumerator Vampire(float durat, float radius, float damage)
+    {
+        Collider[] colliders;
+        bool isEnemyInRange = Physics.CheckSphere(this.transform.position, radius, whatIsEnemy);
+        while (isEnemyInRange)
+        {
+            colliders = Physics.OverlapSphere(this.transform.position, radius, whatIsEnemy);
+            foreach(Collider collider in colliders)
+            {
+                collider.GetComponent<EnemyController>().TakeDamage(damage);
+                plr.Heal(damage / 2);
+            }
+            isEnemyInRange = Physics.CheckSphere(this.transform.position, radius, whatIsEnemy);
+            yield return new WaitForSeconds(durat);
+        }
+        
     }
 }
