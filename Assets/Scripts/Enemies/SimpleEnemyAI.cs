@@ -39,25 +39,24 @@ public class SimpleEnemyAI : MonoBehaviour
         playerInSight = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAtkRange = Physics.Raycast(transform.position, transform.forward, attackRange, whatIsPlayer);// Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSight && !playerInAtkRange || isPlayerInvis) Patroling();
+        if (!playerInSight && !playerInAtkRange || isPlayerInvis) Patroling(2f);
         else if(playerInSight && !playerInAtkRange && !isPlayerInvis) ChasePlayer();
         else if(playerInAtkRange && !isPlayerInvis)AttackPlayer();
     }
 
     //State func
 
-    private void Patroling()
+    private void Patroling(float radius)
     {
         if( !isWalkPointSet) { SearchWalkPoint(); }
         else agent.SetDestination(walkPoint);
 
         Vector3 distanceToWalkPoint= transform.position - walkPoint;
         //елси дистанция меньше метра, то ищем новую точку
-        if(distanceToWalkPoint.magnitude < 1f)
+        if(distanceToWalkPoint.magnitude <= radius)
         {
             isWalkPointSet = false;
         }
-
     }
 
     private void ChasePlayer()
@@ -69,9 +68,11 @@ public class SimpleEnemyAI : MonoBehaviour
     {
         agent.SetDestination(transform.position);
         transform.LookAt(playerT);
+        Patroling(0f);
         
         if (!isAtacking)
         {
+            
             //atack code
             Rigidbody rb = Instantiate(projectile,new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
 

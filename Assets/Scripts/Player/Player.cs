@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     private float maxHealth = 100;
     [SerializeField] private float currHealth;
+    public bool canRes;
 
 
     public InterfaceManager interfaceManager;
@@ -31,14 +32,41 @@ public class Player : MonoBehaviour
         if(currHealth <= 0)
         {
             currHealth = 0;
-            Death();
+            StartCoroutine(Death());
         }
     }
-    public void Death()
+    IEnumerator Death()
     {
         Time.timeScale = 0;
-        interfaceManager.DeathOn();
+        if (GetComponent<Inventory>().currUlt == 4 && GetComponent<UltSkill>().currUltCharge == 100) // 4 - воскрешение
+        {
+            canRes = true;
+            interfaceManager.resurrectScreen.SetActive(true);
+            yield return new WaitForSecondsRealtime(3);// время на воскрешение
+            interfaceManager.resurrectScreen.SetActive(false);
+            if (currHealth <= 0)
+            {
+                canRes = false;
+                interfaceManager.DeathOn();
+            }
+        }
+        else
+        {
+            interfaceManager.DeathOn();
+        }
         
+    }
+
+    public void Heal(float heal)
+    {
+        if (currHP < maxHP)
+        {
+            currHP += heal;
+        }
+        if (currHP > maxHP)
+        {
+            currHP = maxHP;
+        }
     }
 
 }
