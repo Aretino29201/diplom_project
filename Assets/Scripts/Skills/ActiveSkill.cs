@@ -59,7 +59,7 @@ public class ActiveSkill : MonoBehaviour
         if (plr.currHP < plr.maxHP) 
         {
             plr.currHP += addHP;
-            if (plr.currHP + addHP > plr.maxHP)
+            if (plr.currHP > plr.maxHP)
             {
                 plr.currHP = plr.maxHP;
             }
