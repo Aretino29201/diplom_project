@@ -10,7 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float currHealth;
     public bool canRes;
 
-
+    public AudioClip takeDamageAudio, healingAudio,  jumpAudio;
+    public bool isWalkingAudio;
     public InterfaceManager interfaceManager;
 
     public float maxHP { get { return maxHealth; } set { maxHealth = value; } }
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour
 
     public void Heal(float heal)
     {
+        GetComponent<AudioSource>().PlayOneShot(healingAudio);
         if (currHP < maxHP)
         {
             currHP += heal;
@@ -66,6 +68,17 @@ public class Player : MonoBehaviour
         if (currHP > maxHP)
         {
             currHP = maxHP;
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        GetComponent<AudioSource>().PlayOneShot(takeDamageAudio);
+        currHP -= damage;
+        
+        if (currHP < 0)
+        {
+            currHP = 0;
         }
     }
 

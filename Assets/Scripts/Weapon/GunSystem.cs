@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using EZCameraShake;
 
 public class GunSystem : MonoBehaviour
 {
@@ -26,10 +27,12 @@ public class GunSystem : MonoBehaviour
 
     //Graphics
     public GameObject muzzleFlash, bulletHoleGraphic;
-    //public CamShake camShake;
+    public CameraShaker camShake;
     public float camShakeMagnitude, camShakeDuration;
     public Transform renderPoint;
     private GameObject gunModel;
+
+    private AudioSource audioSrc;
 
    
 
@@ -38,6 +41,7 @@ public class GunSystem : MonoBehaviour
     {
         inv = GetComponent<Inventory>();
         ult= GetComponent<UltSkill>();
+        audioSrc = GetComponent<AudioSource>();
     }
 
     public void UpdateGun(WeaponData newWeapon)
@@ -71,6 +75,11 @@ public class GunSystem : MonoBehaviour
         {
             inv.currWeapon.bulletsShot = inv.currWeapon.bulletsPerTap;
             Shoot();
+            // audio
+            audioSrc.pitch = 1;
+            audioSrc.clip = inv.currWeapon.shootSound;
+            audioSrc.pitch = 1 + (float)Random.Range(-7, 7) / 100;
+            audioSrc.PlayOneShot(audioSrc.clip);
         }
     }
     private void Shoot()
@@ -106,10 +115,13 @@ public class GunSystem : MonoBehaviour
 
 
             //ShakeCamera
-            //  camShake.Shake(camShakeDuration, camShakeMagnitude);
+            // camShake.ShakeOnce(camShakeMagnitude, 0.5f, 0f, 0.5f);
+            
+            
 
             //Graphics
-            Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
+           GameObject bullethole = Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
+            bullethole.transform.SetParent(rayHit.transform);
         }
         else // isProjectile
         {

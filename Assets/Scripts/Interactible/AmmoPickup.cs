@@ -8,6 +8,7 @@ public class AmmoPickup : MonoBehaviour
     [SerializeField] private int ammoType;
     private List<WeaponData> weaponData;
     private GunSystem gunSys;
+    public GameObject render;
 
 
     private void Start()
@@ -18,7 +19,7 @@ public class AmmoPickup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-
+        
         if (other.CompareTag("Player"))
         { for(int i = 0; i< weaponData.Count; i++)
             if (weaponData[i] != null && ammoType == weaponData[i].ammoType && weaponData[i].bulletsLeft != weaponData[i].magazineSize)
@@ -31,10 +32,17 @@ public class AmmoPickup : MonoBehaviour
                 {
                     weaponData[i].bulletsLeft = weaponData[i].magazineSize;
                 }
-                Destroy(gameObject);
+                    GetComponent<AudioSource>().Play();
+                    GetComponent<SphereCollider>().enabled = false;
+                    render.SetActive(false); 
+                    Invoke("Destr()",3);
             }
         }
 
         
+    }
+    private void Destr()
+    {
+        Destroy(this.gameObject);
     }
 }

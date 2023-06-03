@@ -17,7 +17,7 @@ public class EnemyProjectile : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             plr = other.gameObject.GetComponent<Player>();
-            plr.currHP -= damage;
+            plr.TakeDamage(damage);
             Debug.Log("Ouch!");
             Destroy(gameObject);
         }

@@ -7,6 +7,7 @@ public class HealthPickup : MonoBehaviour
     [SerializeField] private int pickedHP = 25;
     private Player plr;
     float tmpHP;
+    public GameObject render;
 
 
     private void Start()
@@ -27,11 +28,19 @@ public class HealthPickup : MonoBehaviour
                 } else plr.currHP += pickedHP;
 
                 Debug.Log("Added 25 HP");
-                Destroy(gameObject);
+
+
+                GetComponent<AudioSource>().Play();
+                GetComponent<SphereCollider>().enabled = false;
+                render.SetActive(false);
+                Invoke("Destr()", 1);
             }
             else Debug.Log("HP is full");
         }
 
-        
+    private void Destr()
+    {
+        Destroy(this.gameObject);
     }
+}
 

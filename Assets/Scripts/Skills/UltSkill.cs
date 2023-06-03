@@ -46,7 +46,7 @@ public class UltSkill : MonoBehaviour
         switch (usID)
         {
             case 1:
-                BigBoom(20);
+                BigBoom(10);
                 break;
             case 2:
                 StartCoroutine(RocketBarrage(0.2f, 20));
@@ -135,7 +135,7 @@ public class UltSkill : MonoBehaviour
 
     private void Resurrect()
     {
-        plr.currHP = plr.maxHP;
+        plr.currHP = plr.maxHP/2;
         Time.timeScale = 1;
         intManager.resurrectScreen.SetActive(false);
     }

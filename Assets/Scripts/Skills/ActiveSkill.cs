@@ -56,14 +56,7 @@ public class ActiveSkill : MonoBehaviour
     {
         cooldownTime = cdt;
 
-        if (plr.currHP < plr.maxHP) 
-        {
-            plr.currHP += addHP;
-            if (plr.currHP > plr.maxHP)
-            {
-                plr.currHP = plr.maxHP;
-            }
-        }
+        plr.Heal(addHP);
 
     }
     private void ResetCooldown()

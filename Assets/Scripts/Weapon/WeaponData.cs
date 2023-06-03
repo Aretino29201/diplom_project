@@ -20,4 +20,6 @@ public class WeaponData : ScriptableObject
 
     public bool isProjectile;
     public PlayerProjectile projectile;
+
+    public AudioClip shootSound;
 }

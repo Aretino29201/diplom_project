@@ -25,7 +25,9 @@ public class SimpleEnemyAI : MonoBehaviour
     public bool playerInSight, playerInAtkRange, isPlayerInvis;
 
     public GameObject projectile;
-    public float projectileFwdSpeed = 32, projectileUpSpeed =  8; 
+    public float projectileFwdSpeed = 32, projectileUpSpeed =  8;
+
+    public float atckHeight = 1.5f;
 
 
     private void Awake()
@@ -37,7 +39,10 @@ public class SimpleEnemyAI : MonoBehaviour
     private void Update()
     {
         playerInSight = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAtkRange = Physics.Raycast(transform.position, transform.forward, attackRange, whatIsPlayer);// Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        playerInAtkRange = Physics.Raycast(transform.position, transform.forward, attackRange, whatIsPlayer);
+       // Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+        Debug.DrawLine(transform.position, transform.forward);
 
         if (!playerInSight && !playerInAtkRange || isPlayerInvis) Patroling(2f);
         else if(playerInSight && !playerInAtkRange && !isPlayerInvis) ChasePlayer();
@@ -66,7 +71,7 @@ public class SimpleEnemyAI : MonoBehaviour
     }
     private void AttackPlayer()
     {
-        agent.SetDestination(transform.position);
+       // agent.SetDestination(transform.position);
         transform.LookAt(playerT);
         Patroling(0f);
         
@@ -74,7 +79,7 @@ public class SimpleEnemyAI : MonoBehaviour
         {
             
             //atack code
-            Rigidbody rb = Instantiate(projectile,new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile,new Vector3(transform.position.x, transform.position.y + atckHeight, transform.position.z), Quaternion.identity).GetComponent<Rigidbody>();
 
             rb.AddForce(transform.forward * projectileFwdSpeed, ForceMode.Impulse);
             rb.AddForce(transform.up * projectileUpSpeed, ForceMode.Impulse);
